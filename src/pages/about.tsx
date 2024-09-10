@@ -94,7 +94,7 @@ const AboutPage = () => {
           </motion.div>
           
         </div>
-        <p className='p-20 text-transparent'>.</p>
+        <p className='pb-20 text-transparent'>.</p>
       </motion.div>
     </div>
   );

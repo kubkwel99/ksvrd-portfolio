@@ -172,14 +172,13 @@ const PortfolioPage: React.FC<{ media: MediaItem[] }> = () => {
                     onTouchStart={(e) => handleTouchStart(e, video.url)}
                     onClick={() => handleVideoClick(video.url)}>
                     {media && (
-                      // <CldVideoPlayer
-                      //   className='rounded-xl shadow-2xl aspect-square bg-cover'
-                      //   height={200}
-                      //   width={200}
-                      //   src={video.url}
-                      //   controls={false}
-                      // />
-                      <VideoPlayer publicId={video.public_id}/>
+                      <CldVideoPlayer
+                        className='rounded-xl shadow-2xl aspect-square bg-cover'
+                        height={200}
+                        width={200}
+                        src={video.url}
+                        controls={false}
+                      />
                     )}
                   </div>
                 ) : (

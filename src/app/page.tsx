@@ -6,7 +6,6 @@ import Footer from './../../components/Footer';
 import AboutPage from './../pages/about';
 import PortfolioPage from './../pages/portfolio';
 import { useState, useEffect } from 'react';
-import Preloader from '../../components/Preloader';
 
 type MediaItem = {
   id: number;
@@ -19,15 +18,6 @@ type MediaItem = {
 
 export default function HomePage() {
   const [media, setMedia] = useState<MediaItem[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000); // Adjust the delay to your needs
-
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     // Fetch media data from an API or other source
@@ -38,8 +28,6 @@ export default function HomePage() {
   }, []);
 
   return (
-    <>
-      {loading && <Preloader />}
       <div
         className='bg-top h-screen text-white'
         style={{
@@ -75,7 +63,7 @@ export default function HomePage() {
             <motion.p
               variants={textVariant(0.6)}
               className='text-2xl font-semibold pb-6 text-red-500'>
-              Tvorca medialného obsahu
+              tvorca medialného obsahu
             </motion.p>
 
             <motion.p
@@ -99,6 +87,6 @@ export default function HomePage() {
         <PortfolioPage media={media} />
         <Footer />
       </div>
-    </>
+    
   );
 }

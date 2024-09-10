@@ -1,101 +1,104 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { motion } from 'framer-motion';
+import { headerVariants, staggerContainer, textVariant } from '../../types/motion';
+import Footer from './../../components/Footer';
+import AboutPage from './../pages/about';
+import PortfolioPage from './../pages/portfolio';
+import { useState, useEffect } from 'react';
+import Preloader from '../../components/Preloader';
+
+type MediaItem = {
+  id: number;
+  url: string;
+  public_id: string;
+  secure_url: string;
+  resource_type: string;
+  title: string;
+};
+
+export default function HomePage() {
+  const [media, setMedia] = useState<MediaItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000); // Adjust the delay to your needs
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    // Fetch media data from an API or other source
+    fetch('/api/media')
+      .then((response) => response.json())
+      .then((data) => setMedia(data))
+      .catch((error) => console.error('Error fetching media:', error));
+  }, []);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <>
+      {loading && <Preloader />}
+      <div
+        className='bg-top h-screen text-white'
+        style={{
+          background: 'url(/images/bg.jpg)',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: '30%',
+          zIndex: '-100',
+        }}>
+        <motion.div
+          variants={headerVariants}
+          initial='hidden'
+          whileInView='show'
+          transition={{
+            duration: 0.1,
+            delay: 0.1,
+            ease: 'easeInOut',
+            loop: Infinity,
+          }}
+          viewport={{ once: false, amount: 0.5 }}
+          className='container p-4 mx-auto flex fle justify-between items-center h-screen'>
+          <motion.div
+            className='flex flex-col'
+            variants={staggerContainer(0.1, 0.9)}
+            initial='hidden'
+            animate='show'
+            viewport={{ once: false, amount: 0.15 }}>
+            <motion.h1
+              variants={textVariant(0.2)}
+              className='text-6xl font-extrabold py-2 font-mono'>
+              Ahoj.
+            </motion.h1>
+            <motion.p
+              variants={textVariant(0.6)}
+              className='text-2xl font-semibold pb-6 text-red-500'>
+              Tvorca medialného obsahu
+            </motion.p>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            <motion.p
+              variants={textVariant(0.8)}
+              className='w-1/2 min-w-80'>
+              Som kreatívna hlava s množstvom nápadov, ktoré sa snažím pretvoriť do videí. Tvoreniu
+              amatérskych videí sa venujem približne 3 roky a stále ma to neprestalo baviť!
+            </motion.p>
+            <motion.button
+              variants={textVariant(1)}
+              className='bg-black opacity-100 p-2 my-8 w-36 rounded-xl  hover:bg-neutral-950 transition-all'>
+              <a
+                className='hover:opacity-75'
+                href='mailto:info@example.com'>
+                Napíš mi.
+              </a>
+            </motion.button>
+          </motion.div>
+        </motion.div>
+        <AboutPage />
+        <PortfolioPage media={media} />
+        <Footer />
+      </div>
+    </>
   );
 }

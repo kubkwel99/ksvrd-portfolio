@@ -11,7 +11,6 @@ import { GetServerSideProps } from 'next';
 import { getAllMedia } from './../../utils/cloudinary';
 import 'next-cloudinary/dist/cld-video-player.css';
 import { CldVideoPlayer } from 'next-cloudinary';
-import VideoPlayer from '../../components/VideoPlayer';
 
 type MediaItem = {
   id: number;

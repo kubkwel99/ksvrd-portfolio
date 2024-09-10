@@ -6,7 +6,7 @@ const cloudinary = new Cloudinary({
     cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME!,
   },
   url: {
-    secure: true, // Use HTTPS
+    secure: true,
   },
 });
 
@@ -21,29 +21,24 @@ interface VideoPlayerProps {
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({
   publicId,
-  controls = true,
-  autoPlay = false,
+
   muted = false,
   loop = false,
-  posterUrl
+  posterUrl,
 }) => {
-  const videoUrl = cloudinary
-    .video(publicId)
-    .format('auto')
-    .quality('auto')
-    .toURL();
+  const videoUrl = cloudinary.video(publicId).format('auto').quality('auto').toURL();
 
   return (
     <video
-      className='w-full max-w-xl'
-      controls={controls}
-      autoPlay={autoPlay}
+      className='aspect-square bg-cover '
+
       muted={muted}
       loop={loop}
-      poster={posterUrl}
-    >
-      <source src={videoUrl} type='video/mp4' />
-      Your browser does not support the video tag.
+      poster={posterUrl}>
+      <source
+        src={videoUrl}
+        type='video/mp4'
+      />
     </video>
   );
 };

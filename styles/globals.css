@@ -13,6 +13,7 @@
   font-family: "Montserrat", sans-serif;
   scroll-behavior: smooth;
   font-size: clamp(0.9rem, 3vw, 1.1rem);
+  overflow-x: hidden;
 }
 
 .container {

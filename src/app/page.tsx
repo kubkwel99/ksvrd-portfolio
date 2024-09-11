@@ -63,7 +63,7 @@ export default function HomePage() {
             <motion.p
               variants={textVariant(0.6)}
               className='text-2xl font-semibold pb-6 text-red-500'>
-              tvorca medialného obsahu
+              Tvorca medialného obsahu
             </motion.p>
 
             <motion.p

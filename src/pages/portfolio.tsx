@@ -253,10 +253,6 @@ const PortfolioPage: React.FC<{ media: MediaItem[] }> = () => {
           </div>
         )}
       </motion.div>
-      <video
-        className='w-80'
-        controls
-        src='https://res.cloudinary.com/ksvrd/video/upload/v1725996515/videos/morgenclubold_xh70x6.mp4'></video>
     </motion.div>
   );
 };
